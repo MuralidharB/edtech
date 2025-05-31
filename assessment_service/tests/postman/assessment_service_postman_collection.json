@@ -1,0 +1,114 @@
+{
+  "info": {
+    "name": "Assessment Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Exam",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Midterm Math\", \"subject\": \"Mathematics\", \"date\": \"2025-05-31\", \"section_id\": \"581e101c-59ec-4bc2-abb1-c6c86ec513e4\", \"term_id\": \"925f7cf9-3891-4d5f-96a8-a9c9952e0ead\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/v1/exams",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "api",
+            "v1",
+            "exams"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Exams",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8888/api/v1/exams",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "api",
+            "v1",
+            "exams"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Grading Entry",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"student_id\": \"1e7c01f9-9c6f-4f36-945b-ef0f32709f69\", \"exam_id\": \"f8cda8c7-0156-4ebf-92cc-6f2964a40b15\", \"marks\": 88.5, \"grade\": \"A\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/v1/grading",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "api",
+            "v1",
+            "grading"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Result",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"student_id\": \"1e7c01f9-9c6f-4f36-945b-ef0f32709f69\", \"term_id\": \"925f7cf9-3891-4d5f-96a8-a9c9952e0ead\", \"gpa\": 3.8, \"remarks\": \"Excellent performance\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/v1/results",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "api",
+            "v1",
+            "results"
+          ]
+        }
+      }
+    }
+  ]
+}
