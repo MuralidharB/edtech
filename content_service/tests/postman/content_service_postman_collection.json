@@ -1,0 +1,77 @@
+{
+  "info": {
+    "name": "Content Service API",
+    "_postman_id": "5afcd9e0-ce7b-4920-a6a7-38332524f827",
+    "description": "API collection for testing the Content Service endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Content",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Algebra Basics\",\n  \"description\": \"An intro video to Algebra\",\n  \"type\": \"video\",\n  \"file_url\": \"https://example.com/algebra.mp4\",\n  \"uploaded_by\": \"11111111-1111-1111-1111-111111111111\",\n  \"tags\": \"math,algebra\",\n  \"locale\": \"en\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/contents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "contents"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Content",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/contents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "contents"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Content by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/contents/{{content_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "contents",
+            "{{content_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

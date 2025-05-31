@@ -1,0 +1,44 @@
+{
+  "info": {
+    "name": "Notification Service API",
+    "description": "API for sending and retrieving notifications in the school automation platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Send Notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"recipient_id\": \"12345\",\n  \"recipient_role\": \"student\",\n  \"message\": \"Your class has been rescheduled.\",\n  \"type\": \"push\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/notifications",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "notifications"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch Notifications by Recipient",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notifications/recipient/12345",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "notifications", "recipient", "12345"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
