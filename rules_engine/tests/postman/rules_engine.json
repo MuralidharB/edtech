@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "Rules Engine API",
+    "_postman_id": "f13759cd-5b4a-44a4-947f-bd250fa50f42",
+    "description": "Postman collection for creating and evaluating rules in the Rules Engine microservice.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Rule",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rule_id\": \"grade_promotion_criteria\",\n  \"scope\": \"grade_10_term_2\",\n  \"conditions\": [\n    { \"field\": \"average_score\", \"operator\": \">=\", \"value\": 40 },\n    { \"field\": \"attendance_percentage\", \"operator\": \">=\", \"value\": 75 }\n  ],\n  \"action\": {\n    \"type\": \"PROMOTE\",\n    \"parameters\": {\n      \"to_grade\": 11\n    }\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/v1/rules",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "v1", "rules"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Evaluate Rule",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rule_id\": \"grade_promotion_criteria\",\n  \"input\": {\n    \"average_score\": 82,\n    \"attendance_percentage\": 78\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8888/api/v1/rules/evaluate",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8888",
+          "path": ["api", "v1", "rules", "evaluate"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
+
