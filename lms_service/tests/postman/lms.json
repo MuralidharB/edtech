@@ -1,0 +1,154 @@
+{
+  "info": {
+    "name": "LMS Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "1f825e7d-7143-4c55-a15f-26c9cc48d56a"
+  },
+  "item": [
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Create Course",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Algebra 101\",\n  \"subject\": \"Mathematics\",\n  \"grade_level\": 8,\n  \"curriculum\": \"CBSE\",\n  \"created_by\": \"<teacher_uuid>\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8888/api/v1/courses",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "courses"]
+            }
+          }
+        },
+        {
+          "name": "List Courses",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8888/api/v1/courses",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "courses"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lessons",
+      "item": [
+        {
+          "name": "Create Lesson",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course_id\": \"<course_uuid>\",\n  \"title\": \"Variables and Expressions\",\n  \"sequence_number\": 1,\n  \"metadata\": {\n    \"duration\": \"30 min\",\n    \"tags\": \"algebra, intro\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8888/api/v1/lessons",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "lessons"]
+            }
+          }
+        },
+        {
+          "name": "List Lessons by Course",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8888/api/v1/lessons/course/<course_uuid>",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "lessons", "course", "<course_uuid>"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quizzes",
+      "item": [
+        {
+          "name": "Create Quiz",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lesson_id\": \"<lesson_uuid>\",\n  \"title\": \"Basic Variables Quiz\",\n  \"questions\": [\n    {\n      \"id\": \"q1\",\n      \"type\": \"multiple_choice\",\n      \"question\": \"What is 2 + 2?\",\n      \"options\": [\"3\", \"4\", \"5\"],\n      \"correct\": \"4\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8888/api/v1/quizzes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "quizzes"]
+            }
+          }
+        },
+        {
+          "name": "List Quizzes by Lesson",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8888/api/v1/quizzes/lesson/<lesson_uuid>",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "quizzes", "lesson", "<lesson_uuid>"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Submissions",
+      "item": [
+        {
+          "name": "Submit Quiz",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"<student_uuid>\",\n  \"quiz_id\": \"<quiz_uuid>\",\n  \"answers\": [\n    { \"question_id\": \"q1\", \"answer\": \"4\" }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8888/api/v1/submissions",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "submissions"]
+            }
+          }
+        },
+        {
+          "name": "List Submissions by Student",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8888/api/v1/submissions/student/<student_uuid>",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8888",
+              "path": ["api", "v1", "submissions", "student", "<student_uuid>"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+

@@ -1,10 +1,14 @@
-class ContentBlockOut(BaseModel):
-    type: str
-    content: Dict[str, Any]
+# app/schemas/lesson.py
 
-class LessonOut(BaseModel):
-    id: UUID4
+from pydantic import BaseModel, UUID4
+from typing import Optional, Dict
+
+class LessonCreate(BaseModel):
+    course_id: UUID4
     title: str
-    sequence_number: int
-    content_blocks: List[ContentBlockOut] = []
+    sequence_number: Optional[int] = None
+    metadata: Optional[Dict[str, str]] = None
+
+class LessonOut(LessonCreate):
+    id: UUID4
 
