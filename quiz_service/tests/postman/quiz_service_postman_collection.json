@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "Quiz Service API",
+    "_postman_id": "ad528f90-ef14-4beb-9662-7796cef571c8",
+    "description": "Postman collection for testing the quiz-service APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Quiz (Manual)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Class 6 - Food Quiz\",\n  \"mode\": \"self_learning\",\n  \"subject\": \"Science\",\n  \"grade\": 6,\n  \"lesson_id\": \"f7885445-4d63-4dec-80eb-246e3f53dfd4\",\n  \"questions\": [\n    {\n      \"question_text\": \"Which part of the plant is a carrot?\",\n      \"type\": \"mcq\",\n      \"options\": [\n        \"Leaf\",\n        \"Stem\",\n        \"Root\",\n        \"Fruit\"\n      ],\n      \"correct_answer\": \"Root\",\n      \"explanation\": \"Carrot is a root vegetable.\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/quizzes",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "quizzes"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Submit Quiz Answers",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"quiz_id\": \"7c6008f3-345a-4cea-b55a-b9342a55b0ec\",\n  \"student_id\": \"619392fa-9156-4537-98cc-c6ad7adf10b4\",\n  \"answers\": {\n    \"06e039df-39d6-4f0e-a3b6-59e4c25cbe5a\": \"Root\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/submissions",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "submissions"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Auto-Generate Quiz (GPT)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lesson_id\": \"f9a32f15-7a18-4249-8204-ca2be8d5b2a8\",\n  \"num_questions\": 3,\n  \"difficulty\": \"easy\",\n  \"question_type\": \"mcq\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/quizzes/generate",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "quizzes",
+            "generate"
+          ]
+        }
+      }
+    }
+  ]
+}
