@@ -32,13 +32,18 @@ jobs:
             fi
           done
 
-          MATRIX="{\"service\": [${SERVICES[*]}]}"
-          echo "Final matrix: $MATRIX"
-          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          if [ ${#SERVICES[@]} -eq 0 ]; then
+            echo "No services with Dockerfiles changed. Skipping build."
+            echo "matrix={\"service\": []}" >> $GITHUB_OUTPUT
+          else
+            MATRIX="{\"service\": [${SERVICES[*]}]}"
+            echo "Final matrix: $MATRIX"
+            echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          fi
 
   build-and-push:
     needs: detect-changed-services
-    if: ${{ fromJson(needs.detect-changed-services.outputs.matrix).service != '' }}
+    if: ${{ needs.detect-changed-services.outputs.matrix != '{"service": []}' }}
     runs-on: ubuntu-latest
 
     strategy:
