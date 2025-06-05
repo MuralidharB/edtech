@@ -1,11 +1,13 @@
 fastapi
-uvicorn
-sqlalchemy
 asyncpg
 alembic
 pydantic
-python-dotenv
 pydantic[email]
-passlib
 python-jose
 asyncpg
+
+uvicorn[standard]
+sqlalchemy>=2.0
+passlib[bcrypt]
+python-dotenv
+

@@ -2,8 +2,7 @@ fastapi
 uvicorn[standard]
 sqlalchemy
 psycopg2-binary
-pydantic
-requests
-openai
 python-dotenv
+alembic
+pydantic
 
