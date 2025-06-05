@@ -24,13 +24,12 @@ services:
     volumes:
       - miniodata:/data
     ports:
-      - "9000:9000"       # S3 API
-      - "9001:9001"       # Console UI
+      - "9000:9000"
+      - "9001:9001"
     command: server /data --console-address ":9001"
 
   user-service:
-    build:
-      context: ./user_service
+    image: ghcr.io/MuralidharB/user-service:latest
     env_file:
       - ./user_service/.env
     depends_on:
@@ -40,8 +39,7 @@ services:
     command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   school-service:
-    build:
-      context: ./school_service
+    image: ghcr.io/MuralidharB/school-service:latest
     env_file:
       - ./school_service/.env
     depends_on:
@@ -51,8 +49,7 @@ services:
     command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   enrollment-service:
-    build:
-      context: ./enrollment_service
+    image: ghcr.io/MuralidharB/enrollment-service:latest
     env_file:
       - ./enrollment_service/.env
     depends_on:
@@ -62,8 +59,7 @@ services:
     command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   attendance-service:
-    build:
-      context: ./attendance_service
+    image: ghcr.io/MuralidharB/attendance-service:latest
     env_file:
       - ./attendance_service/.env
     depends_on:
@@ -74,8 +70,7 @@ services:
     command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   assessment-service:
-    build:
-      context: ./assessment_service
+    image: ghcr.io/MuralidharB/assessment-service:latest
     env_file:
       - ./assessment_service/.env
     depends_on:
@@ -85,8 +80,7 @@ services:
     command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   lms-service:
-    build:
-      context: ./lms_service
+    image: ghcr.io/MuralidharB/lms-service:latest
     env_file:
       - ./lms_service/.env
     ports:
@@ -102,8 +96,7 @@ services:
       - mongodata:/data/db
 
   communication-service:
-    build:
-      context: ./communication_service
+    image: ghcr.io/MuralidharB/communication-service:latest
     env_file:
       - ./communication_service/.env
     depends_on:
@@ -113,8 +106,7 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
 
   notification-service:
-    build:
-      context: ./notification_service
+    image: ghcr.io/MuralidharB/notification-service:latest
     env_file:
       - ./notification_service/.env
     depends_on:
@@ -124,8 +116,7 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
 
   analytics-service:
-    build:
-      context: ./analytics_service
+    image: ghcr.io/MuralidharB/analytics-service:latest
     env_file:
       - ./analytics_service/.env
     depends_on:
@@ -135,8 +126,7 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
 
   content-service:
-    build:
-      context: ./content_service
+    image: ghcr.io/MuralidharB/content-service:latest
     env_file:
       - ./content_service/.env
     depends_on:
@@ -149,4 +139,3 @@ volumes:
   pgdata:
   mongodata:
   miniodata:
-

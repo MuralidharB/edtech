@@ -1,0 +1,69 @@
+name: Auto Build & Push Changed Docker Images
+
+on:
+  push:
+    paths:
+      - '**/Dockerfile'
+      - '**/*.py'
+      - '.github/workflows/docker-auto.yml'
+
+jobs:
+  detect-changed-services:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Detect changed service directories
+        id: set-matrix
+        run: |
+          echo "Changed files:"
+          git fetch origin ${{ github.event.before }}
+          CHANGED_DIRS=$(git diff --name-only origin/${{ github.event.before }} HEAD | grep '/' | cut -d/ -f1 | sort -u)
+          echo "Detected directories: $CHANGED_DIRS"
+
+          SERVICES=()
+          for dir in $CHANGED_DIRS; do
+            if [[ -f "$dir/Dockerfile" ]]; then
+              SERVICES+=("\"$dir\"")
+            fi
+          done
+
+          MATRIX="{\"service\": [${SERVICES[*]}]}"
+          echo "Final matrix: $MATRIX"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
+  build-and-push:
+    needs: detect-changed-services
+    if: ${{ fromJson(needs.detect-changed-services.outputs.matrix).service != '' }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: ${{ fromJson(needs.detect-changed-services.outputs.matrix) }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.service }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest
+
