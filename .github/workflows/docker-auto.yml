@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      should_run: ${{ steps.set-matrix.outputs.should_run }}
 
     steps:
       - name: Checkout code
@@ -35,15 +36,17 @@ jobs:
           if [ ${#SERVICES[@]} -eq 0 ]; then
             echo "No services with Dockerfiles changed. Skipping build."
             echo "matrix={\"service\": []}" >> $GITHUB_OUTPUT
+            echo "should_run=false" >> $GITHUB_OUTPUT
           else
             MATRIX="{\"service\": [${SERVICES[*]}]}"
             echo "Final matrix: $MATRIX"
             echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+            echo "should_run=true" >> $GITHUB_OUTPUT
           fi
 
   build-and-push:
     needs: detect-changed-services
-    if: ${{ needs.detect-changed-services.outputs.matrix != '{"service": []}' }}
+    if: ${{ needs.detect-changed-services.outputs.should_run == 'true' }}
     runs-on: ubuntu-latest
 
     strategy:
